@@ -21,7 +21,7 @@ var eventRecordList = [];
 // Receive msg from content script
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     eventRecordList = eventRecordList.concat(message['data']);
-    if (eventRecordList.length > 200) {
+    if (eventRecordList.length > 20000) {
         generateFile(eventRecordList);
         eventRecordList = [];
     }
@@ -49,7 +49,7 @@ function generateFile(tempList) {
 
     chrome.downloads.download({
             url: url,
-            filename: "mouse_event_records",
+            filename: "mouse_event_records.txt",
             conflictAction: 'uniquify',
             saveAs: true
         }

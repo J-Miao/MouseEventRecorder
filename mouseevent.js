@@ -17,25 +17,29 @@
 
             // Find elements that has changed in size or position
             for (var i = 0; i < _pf_elementList.length; i++) {
-                var d = _pf_elementList[i];
+                var d = _pf_elementList[i][1];
+                var curEleID = _pf_elementList[i][0];
+                if (+curEleID === 42) {
+                    console.log($(d));
+                    console.log($(d).offset().left , $(d).offset().top, $(d).width(), $(d).height());
+                }
                 if ($(d).length) {
                     var pos = [$(d).offset().left , $(d).offset().top];
                     var size =  [$(d).width(), $(d).height()];
-                    if (_pf_elementInfo[i]['position'][0] === pos[0] && _pf_elementInfo[i]['position'][1] === pos[1]
-                        && _pf_elementInfo[i]['size'][0] === size[0] && _pf_elementInfo[i]['size'][1] === size[1]) {
+                    if (_pf_elementInfo[curEleID]['position'][0] === pos[0] && _pf_elementInfo[curEleID]['position'][1] === pos[1]
+                        && _pf_elementInfo[curEleID]['size'][0] === size[0] && _pf_elementInfo[curEleID]['size'][1] === size[1]) {
                         continue;
                     }
                     // console.log($(d).attr('_pf_ele_id'));
-                    elementList.push([$(d).attr('_pf_ele_id'), $(d).offset().left , $(d).offset().top, $(d).width(), $(d).height()]);
-                    _pf_elementInfo[i]['position'] = pos;
-                    _pf_elementInfo[i]['size'] = size;
+                    elementList.push([curEleID, $(d).offset().left , $(d).offset().top, $(d).width(), $(d).height()]);
+                    _pf_elementInfo[curEleID]['position'] = pos;
+                    _pf_elementInfo[curEleID]['size'] = size;
                 }
                 else {
-                    elementList.push([$(d).attr('_pf_ele_id'), -1, -1, -1, -1]);
-                    _pf_elementInfo[i]['position'] = [-1,-1];
-                    _pf_elementInfo[i]['size'] = [-1,-1];
+                    elementList.push([curEleID, -1, -1, -1, -1]);
+                    _pf_elementInfo[curEleID]['position'] = [-1,-1];
+                    _pf_elementInfo[curEleID]['size'] = [-1,-1];
                 }
-
             }
 
             curLog['modifiedElements'] = elementList;
@@ -60,14 +64,15 @@
                 if ($(el).attr('_pf_ele_id') === undefined) {
                     var curEleID = _pf_eleCnt++;
                     $(el).attr('_pf_ele_id', curEleID);
-                    _pf_elementList.push($(el));
-                    _pf_elementInfo[curEleID] = {
-                        'position': [-1, -1],
-                        'size': [-1, -1]
-                    }
+
                     if (jQueryGeneric(rez, el, el)) {
                         if ($(el).attr('_pf_event_id') === undefined) {
                             $(el).attr('_pf_event_id', _pf_eventCnt++);
+                            _pf_elementList.push([+$(el).attr('_pf_ele_id'), el]);
+                            _pf_elementInfo[curEleID] = {
+                                'position': [-1, -1],
+                                'size': [-1, -1]
+                            }
                         }
                     };
                 }
@@ -146,18 +151,17 @@
                 // Assign a unique id to the element
                 if (!$(element).hasOwnProperty('_pf_ele_id')) {
                     $(element).attr('_pf_ele_id', _pf_eleCnt ++);
-                    _pf_elementList.push(element);
-                    _pf_elementInfo[+$(element).attr('_pf_ele_id')] = {
-                        'position': [-1, -1],
-                        'size': [-1, -1]
-                    };
                 }
                 // Mark the element if it is bound with an event handler
                 if (jQueryGeneric(rez, element, element)) {
                     if (!$(element).hasOwnProperty('_pf_event_id')) {
                         $(element).attr('_pf_event_id', _pf_eventCnt ++);
+                        _pf_elementList.push([+$(element).attr('_pf_ele_id'), element]);
+                        _pf_elementInfo[+$(element).attr('_pf_ele_id')] = {
+                            'position': [-1, -1],
+                            'size': [-1, -1]
+                        };
                     }
-
                 };
             });
         });
