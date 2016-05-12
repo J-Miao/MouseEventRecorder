@@ -10,6 +10,8 @@ After installing, Mouse Event Recorder can be enabled on any web page by clickin
 
 Then you can just browse web pages as usual and download the record file periodically (every 20,000 records per file).
 
+Remember that you can click its icon again to disable it.
+
 ## Structure of the file
 
 Because there may be hundreds or even thousands of DOM elements on one web page, storing the spatial information costs too much. Mouse Event Recorder stores these information incrementally. Each row in mouse_event_record.txt represents one record, and only the first record contains the spatial information of all DOM elements at the beginning.

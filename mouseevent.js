@@ -19,10 +19,7 @@
             for (var i = 0; i < _pf_elementList.length; i++) {
                 var d = _pf_elementList[i][1];
                 var curEleID = _pf_elementList[i][0];
-                if (+curEleID === 42) {
-                    console.log($(d));
-                    console.log($(d).offset().left , $(d).offset().top, $(d).width(), $(d).height());
-                }
+
                 if ($(d).length) {
                     var pos = [$(d).offset().left , $(d).offset().top];
                     var size =  [$(d).width(), $(d).height()];
@@ -122,7 +119,7 @@
 
             var el = getAncestor($(e.target));
             var curEleID = $(el).attr('_pf_ele_id');
-            console.log(curEleID);
+            // console.log(curEleID);
             var curTime = Math.floor(Date.now());
             var curLog = {'type': 0, 'dragState': _pf_dragging, 'timestamp': curTime,
                 'cursor': p, 'curElement': curEleID};
@@ -146,7 +143,7 @@
             // traverse all existing elements
             rez = [];
             var nodes = $('*');
-            console.log(nodes);
+            // console.log(nodes);
             nodes.each(function(index1, element) {
                 // Assign a unique id to the element
                 if (!$(element).hasOwnProperty('_pf_ele_id')) {

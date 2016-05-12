@@ -2,7 +2,7 @@
 
 var enabled = false;
 chrome.browserAction.onClicked.addListener(function(tab) {
-    console.log(enabled);
+    //console.log(enabled);
     enabled = !enabled;
     if (!enabled) {
         generateFile(eventRecordList);
