@@ -12,6 +12,11 @@ Then you can just browse web pages as usual and download the record file periodi
 
 Remember that you can click its icon again to disable it.
 
+## Workflow
+
+After enabling Mouse Event Recorder, background.js will be executed and it will execute content.js, which will inject mouseevent.js into the current opened web page.
+The mouse events is captured by the event handlers in mouseevent.js, and then after recording 100 records, mouseevent.js will send these records to content.js that forwards to background.js (I didn't find a better way).
+
 ## Structure of the file
 
 Because there may be hundreds or even thousands of DOM elements on one web page, storing the spatial information costs too much. Mouse Event Recorder stores these information incrementally. Each row in mouse_event_record.txt represents one record, and only the first record contains the spatial information of all DOM elements at the beginning.

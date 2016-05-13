@@ -52,7 +52,7 @@
             }
         }
 
-        // For each element, find its lowest ancestor bound with an event handler(marked before)
+        // For each element, find its lowest ancestor attached with an event handler(marked before)
         // Assign unique ids to newly added elements during traversing in the DOM tree
         // If there is no such ancestor exists, then return the element itself
         function getAncestor(el) {
@@ -92,7 +92,7 @@
 
 
         var _pf_eleCnt = 0; // count of elements
-        var _pf_eventCnt = 0; // count of elements bounded with an event handler
+        var _pf_eventCnt = 0; // count of elements attached with an event handler
         var _pf_logList = [];
         var _pf_dragging = false;
         var rez = [];
@@ -149,7 +149,7 @@
                 if (!$(element).hasOwnProperty('_pf_ele_id')) {
                     $(element).attr('_pf_ele_id', _pf_eleCnt ++);
                 }
-                // Mark the element if it is bound with an event handler
+                // Mark the element if it is attached with an event handler
                 if (jQueryGeneric(rez, element, element)) {
                     if (!$(element).hasOwnProperty('_pf_event_id')) {
                         $(element).attr('_pf_event_id', _pf_eventCnt ++);

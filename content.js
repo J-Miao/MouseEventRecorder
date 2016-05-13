@@ -1,3 +1,4 @@
+// Inject javascript code into current web page
 var s = document.createElement('script');
 s.src = chrome.extension.getURL('mouseevent.js');
 s.onload = function() {
